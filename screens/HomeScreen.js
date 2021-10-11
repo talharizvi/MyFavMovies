@@ -31,6 +31,7 @@
    const [pageNo, setPageNo] = useState(1);   //page no
    
    const setDefaultList=()=>{
+    console.log('setDefaultList_pageNo',pageNo)
     setLoaderVisible(true)
     fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=5e2086057e5a6e74b46547297536361d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${pageNo}`)
@@ -53,7 +54,7 @@
    useEffect(() => {
     //fetch initial data
     setDefaultList()
-  },[]);
+  },[pageNo]);
 
   const renderItem = ({item}) => (
     <TouchableOpacity style={{width:windowWidth/2 - 10, marginHorizontal:5, marginVertical:5}} onPress={()=>navigation.navigate('Detail',{itemDetail:item})}>
@@ -127,12 +128,13 @@
   }
 
   const loadMoreData = () =>{
+    console.log('inside load more')
     if(searchQuery === ''){
       setPageNo(pageNo+1)
       console.log('pageNo',pageNo)
       setLoadingMore(true)
       //fetch api
-      setDefaultList()
+      //setDefaultList()
     }
     
     
